@@ -1,0 +1,30 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+#define ll long long
+int t,n,b,k,c;
+int a[1000000]={0};
+map<int,int> mp;
+void solve(){
+    int ans=0,begin=0;
+    for(int i=1;i<=n;i++){
+        a[i]+=a[i-1];
+        if(a[i]!=0&&mp[a[i]]==0) mp[a[i]]=i;
+        if(i-mp[a[i]]>=ans){
+            if(i-mp[a[i]]>ans){
+                begin=mp[a[i]]+1;
+                ans=i-mp[a[i]];
+            }
+            else if(mp[a[i]]+1<begin) begin=mp[a[i]]+1;
+        }
+    }
+    if(ans==0) cout<<0<<endl;
+    else
+    cout<<ans<<" "<<begin<<endl;
+}
+int main()
+{
+    cin>>n>>k;
+    for(int i=1;i<=n;i++) cin>>a[i],a[i]-=k;
+    solve();
+}
